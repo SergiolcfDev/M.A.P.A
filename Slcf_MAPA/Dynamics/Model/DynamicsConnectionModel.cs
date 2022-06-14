@@ -1,13 +1,10 @@
 ﻿using Microsoft.Xrm.Sdk;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Xrm.Tooling.Connector;
+using System.Configuration;
 
 namespace Slcf_MAPA.Dynamics.Model
 {
-    internal class DynamicsConnectionModel
+    public class DynamicsConnectionModel
     {
         private string AuthType { get; set; }
         private string UserName { get; set; }
@@ -16,8 +13,18 @@ namespace Slcf_MAPA.Dynamics.Model
         private string AppId { get; set; }
         private string RedirectURI { get; set; }
         private string LoginPrompt { get; set; }
-        private string ConnectionString { get; set; }
+        public string ConnectionString { get; set; }
+        public void BuildConnection()
+        {
+            AuthType = ConfigurationManager.AppSettings["DynamicsAuthType"];
+            UserName = ConfigurationManager.AppSettings["DynamicsUserName"];
+            Password = ConfigurationManager.AppSettings["DynamicsPassword"];
+            Url = ConfigurationManager.AppSettings["DynamicsUrl"];
+            AppId = ConfigurationManager.AppSettings["DynamicsAppId"];
+            RedirectURI = ConfigurationManager.AppSettings["DynamicsRedirectURI"];
+            LoginPrompt = ConfigurationManager.AppSettings["DynamicsLoginPrompt"];
 
-        IOrganizationService service = null;
+            ConnectionString = $"AuthType = {AuthType};Username={UserName};Password={Password};Url={Url}; AppId={AppId};RedirectUri={RedirectURI}; LoginPrompt={LoginPrompt}";
+        }
     }
 }
