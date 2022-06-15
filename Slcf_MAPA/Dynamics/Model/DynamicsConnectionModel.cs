@@ -14,7 +14,12 @@ namespace Slcf_MAPA.Dynamics.Model
         private string RedirectURI { get; set; }
         private string LoginPrompt { get; set; }
         public string ConnectionString { get; set; }
-        public void BuildConnection()
+        public DynamicsConnectionModel()
+        {
+            BuildConnection();
+            SetConnectionString();
+        }
+        private void BuildConnection()
         {
             AuthType = ConfigurationManager.AppSettings["DynamicsAuthType"];
             UserName = ConfigurationManager.AppSettings["DynamicsUserName"];
@@ -23,8 +28,9 @@ namespace Slcf_MAPA.Dynamics.Model
             AppId = ConfigurationManager.AppSettings["DynamicsAppId"];
             RedirectURI = ConfigurationManager.AppSettings["DynamicsRedirectURI"];
             LoginPrompt = ConfigurationManager.AppSettings["DynamicsLoginPrompt"];
-
-            ConnectionString = $"AuthType = {AuthType};Username={UserName};Password={Password};Url={Url}; AppId={AppId};RedirectUri={RedirectURI}; LoginPrompt={LoginPrompt}";
+           
         }
+        private string SetConnectionString() => ConnectionString = $"AuthType = {AuthType};Username={UserName};Password={Password};Url={Url}; AppId={AppId};RedirectUri={RedirectURI}; LoginPrompt={LoginPrompt}";
+
     }
 }

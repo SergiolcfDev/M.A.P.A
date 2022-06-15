@@ -5,16 +5,17 @@ namespace Slcf_MAPA.Connector
 {
     public class Connect365
     {
-        protected IOrganizationService _service;
-        protected string _connectionString;
+        private string _ConnectionString;
+        private IOrganizationService _service;
         public Connect365(string connectionstring)
         {
-            _connectionString = connectionstring;
+            SetConnectionString(connectionstring);
             CreateConnection();
         }
         private void CreateConnection()
         {
-            CrmServiceClient crmServiceClient = new CrmServiceClient(_connectionString);
+
+            CrmServiceClient crmServiceClient = new CrmServiceClient(_ConnectionString);
             if (crmServiceClient.IsReady)
             {
                 Logger.Logger.WriteToFile("Dynamics 365 successfully connected!");
@@ -27,5 +28,9 @@ namespace Slcf_MAPA.Connector
             }
         }
         public IOrganizationService GetConnection() => _service;
+        private void SetConnectionString(string connectionString)
+        {
+            _ConnectionString = connectionString;
+        }
     }
 }

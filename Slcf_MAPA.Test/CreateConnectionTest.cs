@@ -9,35 +9,28 @@ namespace Slcf_MAPA.Test
     public class CreateConnectionTest
     {
 
-        string _ConnectionString;
+        DynamicsConnectionModel _ConnectionString;
 
-        public string DynamicsConnectionModel
+        public DynamicsConnectionModel DynamicsConnectionModel
         {
             get
             {
-                var dynamicsConnectionModel = new DynamicsConnectionModel();
-                dynamicsConnectionModel.BuildConnection();
-                return dynamicsConnectionModel.ConnectionString;
+                _ConnectionString = new DynamicsConnectionModel();
+                return _ConnectionString;
             }
         }
-
-        Connect365 _service;
-
         public Connect365 ConnectService
         {
             get
             {
-                _service = new Connect365(_ConnectionString);
-                return _service;
+                return new Connect365(DynamicsConnectionModel.ConnectionString);
+
             }
         }
-
-     
         [TestMethod]
         public void CreateConnection()
         {
-            var connectionstringx = DynamicsConnectionModel;
-            var teste = _service.GetConnection();
+            var connectionService = ConnectService.GetConnection();
         }
     }
 }
