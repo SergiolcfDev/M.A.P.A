@@ -8,9 +8,5 @@ namespace Slcf_MAPA.WebApi.Controller
 {
     public class HerokuController
     {
-
-        [HttpGet]
-        
-
     }
 }

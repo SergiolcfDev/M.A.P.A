@@ -8,49 +8,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Slcf_MAPA.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public static void Register(HttpConfiguration configuration)
         {
-            Configuration = configuration;
+            configuration.MapHttpAttributeRoutes();
+            configuration.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate:"api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+                );
         }
 
-        public IConfiguration Configuration { get; }
+        //public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-        }
+        //// This method gets called by the runtime. Use this method to add services to the container.
+        //public void ConfigureServices(IServiceCollection services)
+        //{
+        //    services.AddRazorPages();
+        //}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+        //// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        //{
+        //    if (env.IsDevelopment())
+        //    {
+        //        app.UseDeveloperExceptionPage();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+        //    }
+        //    else
+        //    {
+        //        app.UseExceptionHandler("/Error");
+        //        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        //        app.UseHsts();
+        //    }
 
-            app.UseRouting();
+        //    app.UseHttpsRedirection();
+        //    app.UseStaticFiles();
 
-            app.UseAuthorization();
+        //    app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
-        }
+        //    app.UseAuthorization();
+
+        //    app.UseEndpoints(endpoints =>
+        //    {
+        //        endpoints.MapRazorPages();
+
+        //    });
+
+
     }
 }
+
